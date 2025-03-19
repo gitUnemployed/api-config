@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { PostMethodAPI } from "../lib/apiConfig";
 import { ServerVariables } from "../lib/serverVariables";
+import toast from "react-hot-toast";
+// import axios from "axios";
 
 const Home = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -11,11 +13,14 @@ const Home = () => {
       payload: { email },
       loading: setLoading,
     });
-    console.log(res);
-    alert("Success: " + res?.message);
+    if (res) {
+      toast.success(res?.message);
+      console.log(res);
+    }
   };
   return (
     <div>
+      {loading && <>Loading...</>}
       <input
         placeholder="email"
         name="email"
